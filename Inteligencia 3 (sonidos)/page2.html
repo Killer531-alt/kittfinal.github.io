@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis 3</title>
+    <link rel="stylesheet" type="text/css" href="desing.css">
+    <link rel="icon" href="Recursos/rubik.png" type="image/png">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+        </ul>
+    </nav>
+
+    <div class="marc">Reconocimiento de sonidos</div>
+    <p id="label">Escuchando...</p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://unpkg.com/ml5@0.14.7/dist/ml5.min.js"></script>
+    <script type="text/javascript">
+        let classifier;
+        let labelElement;
+
+        function setup() {
+            labelElement = document.getElementById('label');
+            labelElement.innerText = 'Solicitando permiso para acceder al micrófono...';
+
+            // Solicitar permiso para acceder al micrófono
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(function(stream) {
+                    // Permiso concedido, cargar el modelo y comenzar la clasificación
+                    labelElement.innerText = 'Permiso concedido. Escuchando...';
+                    classifier = ml5.soundClassifier('./my_model/model.json', modelReady);
+                })
+                .catch(function(err) {
+                    // Error o permiso denegado
+                    console.error(err);
+                    labelElement.innerText = 'Error al acceder al micrófono';
+                });
+        }
+
+        function modelReady() {
+            classifier.classify(gotResult);
+        }
+
+        function gotResult(error, results) {
+            if (error) {
+                console.error(error);
+                return;
+            }
+
+            labelElement.innerText = 'Etiqueta: ' + results[0].label;
+
+            // Continuar clasificando
+            classifier.classify(gotResult);
+        }
+
+        // Inicializar p5.js
+        new p5(setup);
+    </script>
+</body>
+</html>

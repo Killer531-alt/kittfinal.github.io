@@ -1,0 +1,62 @@
+@font-face {
+    font-family: roboto;
+    src: url(roboto.ttf);
+}
+
+body {
+    font-family: roboto;
+    background-color: #fff;
+    margin: 0;
+}
+
+nav {
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.6));
+    opacity:100;
+    height: 8vh;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.20), 1px 2px 2px rgba(0,0,0,0.20);
+}
+
+nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right: 3vw;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* CONTENT */
+
+header {
+    width:100%;
+    height:100vh;
+}
+
+.bg {
+    width: 100%;
+    height: 100vh;
+    background:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.7)), url(Recursos/Fondo4.gif);
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.content{
+    width: 90%;
+    height: 70%;
+    margin: 0 auto;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
