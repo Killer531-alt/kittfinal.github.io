@@ -58,5 +58,118 @@ header {
     justify-content: center;
     align-items: center;
   }
-  
 
+  header h1 {
+    margin: 20px;
+}
+  
+@media only screen and (max-width: 620px) {
+    .content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  
+    .column {
+      width: 90%;
+      height: auto;
+      margin: 1rem 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .column .IA {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .column .IA img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    .column .title {
+      margin: 0;
+      padding: 0.5rem 0;
+      line-height: 1;
+    }
+  
+    .column .title h1 {
+      font-size: 1.5em;
+      margin: 0;
+    }
+  
+    .column .text {
+      margin: 0;
+      padding: 0.5rem 0;
+      flex-grow: 1;
+      overflow: auto;
+    }
+  
+    .column .text p {
+      width: 100%;
+      text-align: center;
+      margin: 0;
+    }
+  }
+  
+  /* Estilos para dispositivos de escritorio */
+  @media only screen and (min-width: 621px) {
+    .content {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100vh;
+    }
+  
+    .column {
+      width: 30%;
+      height: 60%;
+      margin: 0 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .column .IA {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+    }
+  
+    .column .IA img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    .column .title {
+      margin: 0;
+      padding: 0.5rem 0;
+      line-height: 1;
+    }
+  
+    .column .title h1 {
+      font-size: 1.5em;
+      margin: 0;
+    }
+  
+    .column .text {
+      margin: 0;
+      padding: 0.5rem 0;
+      flex-grow: 1;
+    }
+  
+    .column .text p {
+      width: 100%;
+      text-align: center;
+      margin: 0;
+    }
+  }

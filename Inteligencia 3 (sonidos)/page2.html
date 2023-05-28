@@ -17,48 +17,52 @@
     <div class="marc">Reconocimiento de sonidos</div>
     <p id="label">Escuchando...</p>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
-    <script src="https://unpkg.com/ml5@0.14.7/dist/ml5.min.js"></script>
-    <script type="text/javascript">
-        let classifier;
-        let labelElement;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+<script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+<script type="text/javascript">
+  // Global variable to store the classifier
+let classifier;
 
-        function setup() {
-            labelElement = document.getElementById('label');
-            labelElement.innerText = 'Solicitando permiso para acceder al micrófono...';
+// Label
+let label = 'listening...';
 
-            // Solicitar permiso para acceder al micrófono
-            navigator.mediaDevices.getUserMedia({ audio: true })
-                .then(function(stream) {
-                    // Permiso concedido, cargar el modelo y comenzar la clasificación
-                    labelElement.innerText = 'Permiso concedido. Escuchando...';
-                    classifier = ml5.soundClassifier('./my_model/model.json', modelReady);
-                })
-                .catch(function(err) {
-                    // Error o permiso denegado
-                    console.error(err);
-                    labelElement.innerText = 'Error al acceder al micrófono';
-                });
-        }
+// Teachable Machine model URL:
+let soundModel = './my_model/';
 
-        function modelReady() {
-            classifier.classify(gotResult);
-        }
 
-        function gotResult(error, results) {
-            if (error) {
-                console.error(error);
-                return;
-            }
+function preload() {
+  // Load the model
+  classifier = ml5.soundClassifier(soundModel + 'model.json');
+}
 
-            labelElement.innerText = 'Etiqueta: ' + results[0].label;
+function setup() {
+  createCanvas(320, 240);
+  // Start classifying
+  // The sound model will continuously listen to the microphone
+  classifier.classify(gotResult);
+}
 
-            // Continuar clasificando
-            classifier.classify(gotResult);
-        }
+function draw() {
+  background(0);
+  // Draw the label in the canvas
+  fill(255);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+  text(label, width / 2, height / 2);
+}
 
-        // Inicializar p5.js
-        new p5(setup);
-    </script>
+
+// The model recognizing a sound will trigger this event
+function gotResult(error, results) {
+  if (error) {
+    console.error(error);
+    return;
+  }
+  // The results are in an array ordered by confidence.
+  // console.log(results[0]);
+  label = results[0].label;
+}
+</script>
 </body>
 </html>
